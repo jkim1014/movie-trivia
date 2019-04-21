@@ -11,12 +11,16 @@ class Results extends Component {
   }
 
   componentDidMount() {
-    const intersection = this.props.answers.filter(value =>
-      this.props.playerAnswers.includes(value)
-    )
+    const { playerAnswers, answers } = this.props
+    let count = 0
+    answers.map(answer => {
+      if (playerAnswers.flat().indexOf(answer) >= 0) {
+        count += 1
+      }
+    })
     this.setState({
-      right: intersection.length,
-      wrong: this.props.answers.length - intersection.length
+      right: count,
+      wrong: this.props.answers.length - count
     })
   }
   render() {
